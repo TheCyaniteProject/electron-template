@@ -1,6 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+import { app, BrowserWindow, ipcMain } from 'electron'
 // include the Node.js 'path' module at the top of your file
-const path = require('node:path')
+import { join } from 'node:path'
+import Debug from './debug.js'
+
+const debug = new Debug();
 
 // modify your existing createWindow() function
 const createWindow = () => {
@@ -10,12 +13,12 @@ const createWindow = () => {
         transparent: true,
         frame: false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: join(__dirname, 'preload.js')
         }
     })
 
-    win.loadFile('index.html')
-}
+    win.loadFile('index.html');
+};
 
 ipcMain.on('minimize', (event) => {
   const win = BrowserWindow.fromWebContents(event.sender);
@@ -31,13 +34,13 @@ ipcMain.on('open-devtools', (event) => {
 });
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
-    })
-})
+    });
+});
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-})
+    if (process.platform !== 'darwin') app.quit();
+});

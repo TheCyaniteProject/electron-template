@@ -2,6 +2,7 @@
   "name": "new-project",
   "version": "1.0.0",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "start": "electron .",
     "build": "electron-packager ./ new-project --platform=win32 --arch=x64 --overwrite --out=build"
@@ -13,5 +14,8 @@
   "devDependencies": {
     "electron": "^35.0.1",
     "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "node-mommy": "^1.7.0"
   }
 }
